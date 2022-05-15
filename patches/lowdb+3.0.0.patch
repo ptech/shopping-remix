@@ -1,0 +1,26 @@
+diff --git a/node_modules/lowdb/lib/Low.d.ts b/node_modules/lowdb/lib/Low.d.ts
+index ba2855a..2eca466 100644
+--- a/node_modules/lowdb/lib/Low.d.ts
++++ b/node_modules/lowdb/lib/Low.d.ts
+@@ -4,7 +4,7 @@ export interface Adapter<T> {
+ }
+ export declare class Low<T = unknown> {
+     adapter: Adapter<T>;
+-    data: T | null;
++    data: T;
+     constructor(adapter: Adapter<T>);
+     read(): Promise<void>;
+     write(): Promise<void>;
+diff --git a/node_modules/lowdb/lib/LowSync.d.ts b/node_modules/lowdb/lib/LowSync.d.ts
+index 3940ffb..d19bdd4 100644
+--- a/node_modules/lowdb/lib/LowSync.d.ts
++++ b/node_modules/lowdb/lib/LowSync.d.ts
+@@ -4,7 +4,7 @@ export interface SyncAdapter<T> {
+ }
+ export declare class LowSync<T = unknown> {
+     adapter: SyncAdapter<T>;
+-    data: T | null;
++    data: T;
+     constructor(adapter: SyncAdapter<T>);
+     read(): void;
+     write(): void;

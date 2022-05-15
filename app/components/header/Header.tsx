@@ -1,28 +1,28 @@
 import React from 'react';
 import styled from "@emotion/styled";
 
-import {black, mediumGrey, white} from "~/theme/colors";
+import {black, white} from "~/theme/colors";
 import {Link} from "@remix-run/react";
+import Bag from "~/components/icons/Bag";
 
-const StyledHeader = styled.header`
-  width: 100%;
-  padding: 0 1.5rem;
-  height: 5rem;
-  color: ${white};
-  background-color: ${black};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+import {StyledHeader, Nav, Logo, StyledLink, StyledBagLink, Counter} from './Header.styles';
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-`;
+type PropTypes = {
+    bagCounter: number;
+};
 
-const Header: React.FC = () => {
+const Header: React.FC<PropTypes> = (props) => {
+    const { bagCounter } = props;
+
     return (
         <StyledHeader>
-            <StyledLink to="/">Fashion Store</StyledLink>
+            <Logo to="/">Random Store</Logo>
+            <Nav>
+                <StyledLink to="/shopping">Shopping</StyledLink>
+            </Nav>
+            <StyledBagLink to="/bag">
+                <Bag /> {!!bagCounter && <Counter>{bagCounter >= 100 ? '+99' : bagCounter }</Counter>}
+            </StyledBagLink>
         </StyledHeader>
     )
 };

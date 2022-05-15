@@ -1,9 +1,8 @@
-import type { LoaderFunction } from "@remix-run/node";
-import { Link, useLoaderData, useLocation, useParams } from "@remix-run/react";
-import { json, Response } from "@remix-run/node";
+import type {LoaderFunction} from "@remix-run/node";
+import {Link, useLoaderData, useLocation, useParams} from "@remix-run/react";
+import {json, Response} from "@remix-run/node";
 
-import type { Product } from "~/models/products";
-import { getCategories, getProducts, getProductsByCategory } from "~/models/products";
+import {getCategories, getProducts, getProductsByParams} from "~/model/products";
 
 import ProductItem from "~/components/product-item/ProductItem";
 
@@ -16,6 +15,7 @@ import {
     SortOptions,
     ProductWrapper
 } from './Shopping.styles';
+import type {TProduct} from "~/types/model.type";
 
 type Option = {
     value: string;
@@ -23,27 +23,28 @@ type Option = {
 };
 
 type LoaderData = {
-    products: Product[];
+    products: TProduct[];
     categories: string[];
+    genders: string[];
     sort: Option[];
 };
 
-export const loader: LoaderFunction = async ({ params, request }) => {
-
+export const loader: LoaderFunction = async ({params, request}) => {
     const url = new URL(request.url);
     const sort: string | null = url.searchParams.get('sort');
 
     const products = !params['*']
-        ? await getProducts(sort)
-        : await getProductsByCategory(params['*'], sort);
+        ? getProducts(sort)
+        : getProductsByParams({category: params['*']}, sort);
 
     if (!products || !products.length) {
-        throw new Response("Not Found", { status: 404 });
+        throw new Response("Not Found", {status: 404});
     }
 
     return json<LoaderData>({
         products,
-        categories: await getCategories(),
+        categories: getCategories(),
+        genders: ['men', 'woman', 'unisex'],
         sort: [{
             value: 'asc',
             text: 'Price (Low to High)'
@@ -56,8 +57,8 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
 const Shopping = () => {
     const params = useParams();
-    const { pathname } = useLocation();
-    const { products = [], categories = [], sort } = useLoaderData<LoaderData>();
+    const {pathname} = useLocation();
+    const {products = [], categories = [], sort} = useLoaderData<LoaderData>();
     const selectedCategory = params['*'];
 
     return (
@@ -91,7 +92,7 @@ const Shopping = () => {
                 </DropPanel>
             </FilterBar>
             <ProductWrapper>
-                {products?.map((product) => <ProductItem key={product.id} item={product} />)}
+                {products?.map((product) => <ProductItem key={product.id} item={product}/>)}
             </ProductWrapper>
         </main>
     )
