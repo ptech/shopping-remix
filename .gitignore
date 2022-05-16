@@ -1,9 +1,8 @@
 node_modules
 
+/.idea
 /.cache
 /build
 /public/build
 .env
-
-/prisma/data.db
-/prisma/data.db-journal
+db.json
