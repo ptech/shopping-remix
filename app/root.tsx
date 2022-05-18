@@ -1,12 +1,14 @@
-import type {LoaderFunction, MetaFunction} from "@remix-run/node";
+import React from 'react';
 import {
     Links,
     LiveReload,
     Meta,
     Outlet,
     Scripts,
-    ScrollRestoration, useLoaderData,
+    ScrollRestoration, useCatch, useLoaderData,
 } from "@remix-run/react";
+import {json} from "@remix-run/node";
+
 import {Global} from "@emotion/react";
 import globalStyles from "~/theme/global.styles";
 
@@ -14,11 +16,18 @@ import globalStyles from "~/theme/global.styles";
 import Header from "~/components/header/Header";
 import Footer from "~/components/footer/Footer";
 import {getBagCount} from "~/model/bag";
-import {json} from "@remix-run/node";
+
+import type {ErrorBoundaryComponent, LoaderFunction, MetaFunction} from "@remix-run/node";
+import type {CatchBoundaryComponent} from "@remix-run/react/routeModules";
 
 type LoaderData = {
     bagCounter: number;
 };
+
+interface DocumentProps {
+    children: React.ReactNode;
+    title?: string;
+}
 
 export const loader: LoaderFunction = async () => {
     const bagCounter = await getBagCount();
@@ -28,28 +37,83 @@ export const loader: LoaderFunction = async () => {
 
 export const meta: MetaFunction = () => ({
     charset: "utf-8",
-    title: "New Remix App",
+    title: "Switch Store",
     viewport: "width=device-width,initial-scale=1",
 });
+
+const Document: React.FC<DocumentProps> = ({ children, title }) => (
+    <html lang="en">
+    <head>
+        {title ? <title>{title}</title> : undefined}
+        {/* All meta exports on all routes will go here */}
+        <Meta/>
+        {/* All link exports on all routes will go here */}
+        <Links/>
+    </head>
+    <body>
+    {/* Global emotion styles */}
+    <Global styles={globalStyles}/>
+
+    {children}
+
+    {/* Manages scroll position for client-side transitions */}
+    {/* If you use a nonce-based content security policy for scripts,
+    you must provide the `nonce` prop. Otherwise, omit the nonce prop as shown here. */}
+    <ScrollRestoration/>
+
+    {/* Script tags go here */}
+    {/* If you use a nonce-based content security policy for scripts, you must provide the `nonce` prop.
+    Otherwise, omit the nonce prop as shown here. */}
+    <Scripts/>
+
+    {/* Sets up automatic reload when you change code */}
+    {/* and only does anything during development */}
+    {/* If you use a nonce-based content security policy for scripts,
+    you must provide the `nonce` prop. Otherwise, omit the nonce prop as shown here. */}
+    <LiveReload/>
+    </body>
+    </html>
+);
 
 export default function App() {
     const { bagCounter } = useLoaderData<LoaderData>();
 
     return (
-        <html lang="en">
-        <head>
-            <Meta/>
-            <Links/>
-        </head>
-        <body>
-        <Global styles={globalStyles}/>
-        <Header bagCounter={bagCounter}/>
-        <Outlet/>
-        <Footer/>
-        <ScrollRestoration/>
-        <Scripts/>
-        <LiveReload/>
-        </body>
-        </html>
+        <Document>
+            <Header bagCounter={bagCounter}/>
+            {/* Child routes go here */}
+            <Outlet/>
+            <Footer/>
+        </Document>
+    );
+}
+
+export const CatchBoundary: CatchBoundaryComponent = () => {
+    const caught = useCatch();
+
+    return (
+        <Document title="Oops!">
+            <Header />
+            <main>
+                <h1>{caught.status === 404 ? 'Not found' : 'Oops! Something went wrong!'}</h1>
+                <pre>
+                    <code>{JSON.stringify(caught.data, null, 2)}</code>
+                </pre>
+            </main>
+            <Footer/>
+        </Document>
+    );
+}
+
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+    return (
+        <Document title="Oops!">
+            <Header />
+            <main>
+                <h1>Oops! Something went wrong!</h1>
+                <pre>{error.stack}</pre>
+            </main>
+            <Footer/>
+        </Document>
     );
 }

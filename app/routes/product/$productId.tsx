@@ -17,7 +17,7 @@ import {
 } from './ProductDetails.styles';
 import Select from "~/components/select/Select";
 import {addToBag} from "~/model/bag";
-import React, {RefObject, useEffect, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 
 type LoaderData = {
     product: TProduct;
@@ -42,7 +42,7 @@ export const action: ActionFunction = async ({request, params}) => {
 
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
-    console.log(formData);
+
     const errors: ActionData = {
         quantity: !data?.quantity ? 'Please select the quantity' : null,
     };
@@ -50,9 +50,7 @@ export const action: ActionFunction = async ({request, params}) => {
     const hasErrors = Object.values(errors).some((message) => message);
 
     if (!hasErrors) {
-        const result = await addToBag(params.productId, Number(data.quantity));
-
-        console.log(result);
+        await addToBag(params.productId, Number(data.quantity));
     }
 
     return json<ActionData>(errors);

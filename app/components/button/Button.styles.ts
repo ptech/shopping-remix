@@ -97,4 +97,11 @@ export const NativeButton = styled('button', {
         css`
             width: 100%;
         `};
+
+    ${({small}): ThemeComponentType =>
+        small &&
+        css`
+            padding-top: 0.8rem;
+            padding-bottom: 0.8rem;
+        `};
 `;

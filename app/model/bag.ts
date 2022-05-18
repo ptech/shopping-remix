@@ -43,6 +43,17 @@ export const getBagCount = async () => {
     return counter;
 };
 
+export const getTotalAmount = async () => {
+    const bagItems = await getBag();
+    let totalAmount = 0;
+
+    bagItems.forEach((item) => {
+        totalAmount += (item.price * item.quantity);
+    });
+
+    return Math.round(totalAmount * 100) / 100;
+}
+
 export const addToBag = async (productId: string, quantity: number = 1) => {
     invariant(productId, 'Product id is missing');
     invariant(quantity, 'Quantity is missing');

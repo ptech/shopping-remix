@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+
 import {mediumGrey} from "~/theme/colors";
 
 const StyledFooter = styled.footer`
@@ -13,7 +14,7 @@ const Copyright = styled.span`
 const Footer: React.FC = () => {
     return (
         <StyledFooter>
-            <Copyright>Powered by João Girão</Copyright>
+            <Copyright>Powered by Present Technologies</Copyright>
         </StyledFooter>
     );
 };

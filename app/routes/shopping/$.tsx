@@ -1,4 +1,4 @@
-import type {LoaderFunction} from "@remix-run/node";
+import type {HeadersFunction, LoaderFunction, MetaFunction} from "@remix-run/node";
 import {Link, useLoaderData, useLocation, useParams} from "@remix-run/react";
 import {json, Response} from "@remix-run/node";
 
@@ -53,6 +53,28 @@ export const loader: LoaderFunction = async ({params, request}) => {
             text: 'Price (High to Low)'
         }]
     });
+}
+
+export const headers: HeadersFunction = () => {
+    return {
+        "X-Where-Are-You": "Switch Party",
+    };
+};
+
+export const meta: MetaFunction = ({ data, params }) => {
+    const category = params['*'];
+
+    if (!data) {
+        return {
+            title: 'Missing Shopping',
+            description: `The is no products with the category "${category}"`,
+        };
+    }
+
+    return {
+        title: category ? `Shopping - ${category}` : 'Shopping',
+        description: 'This is a real shopping page!!'
+    };
 }
 
 const Shopping = () => {

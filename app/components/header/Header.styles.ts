@@ -27,7 +27,13 @@ export const Logo = styled(Link)`
 `;
 
 export const StyledLink = styled(Link)`
-  text-decoration: none;
+    text-decoration: none;
+    line-height: 0;
+
+    svg {
+        width: 4rem;
+        height: 4rem;
+    }
 `;
 
 export const StyledBagLink = styled(Link)`

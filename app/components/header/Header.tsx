@@ -6,9 +6,10 @@ import {Link} from "@remix-run/react";
 import Bag from "~/components/icons/Bag";
 
 import {StyledHeader, Nav, Logo, StyledLink, StyledBagLink, Counter} from './Header.styles';
+import Account from "~/components/icons/Account";
 
 type PropTypes = {
-    bagCounter: number;
+    bagCounter?: number;
 };
 
 const Header: React.FC<PropTypes> = (props) => {
@@ -16,10 +17,13 @@ const Header: React.FC<PropTypes> = (props) => {
 
     return (
         <StyledHeader>
-            <Logo to="/">Random Store</Logo>
+            <Logo to="/">Switch Store</Logo>
             <Nav>
                 <StyledLink to="/shopping">Shopping</StyledLink>
             </Nav>
+            <StyledLink to="/account">
+                <Account />
+            </StyledLink>
             <StyledBagLink to="/bag">
                 <Bag /> {!!bagCounter && <Counter>{bagCounter >= 100 ? '+99' : bagCounter }</Counter>}
             </StyledBagLink>

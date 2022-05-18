@@ -15,11 +15,12 @@ export type TProduct = {
 };
 
 export type TAddress = {
-    id: number;
+    id: string;
     name: string;
+    country: string;
     addressLine: string;
     postalCode: string;
-    phoneNumber: number;
+    phoneNumber: string;
 };
 
 export type TOrders = {
@@ -41,7 +42,7 @@ export type TBagItemDetailed = TBagItem & TProduct;
 export type TUser = {
     name: string;
     email: string;
-    phoneNumber?: number;
+    phoneNumber?: string;
 
     addresses: TAddress[];
     bag: TBagItem[];

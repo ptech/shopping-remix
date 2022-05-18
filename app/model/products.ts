@@ -1,7 +1,6 @@
 import type {TProduct} from "~/types/model.type";
 import {db} from "~/db.server";
 import type {Gender} from "~/types/model.type";
-import {uuid} from "uuidv4";
 
 const orderedProducts = (products: TProduct[] = [], sort?: string | null) => {
     if (sort === 'asc') {

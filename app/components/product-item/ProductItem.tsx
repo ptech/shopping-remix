@@ -1,12 +1,12 @@
 import React from "react";
 
-import type {Product} from "~/model/products";
-
 import {Image, ImageWrapper} from './ProductItem.styles';
 import {Link} from "@remix-run/react";
 
+import {TProduct} from "~/types/model.type";
+
 type PropTypes = {
-    item: Product;
+    item: TProduct;
 };
 
 const ProductItem: React.FC<PropTypes> = (props) => {
