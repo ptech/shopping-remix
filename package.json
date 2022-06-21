@@ -9,7 +9,8 @@
         "build": "remix build",
         "dev": "remix dev",
         "start": "remix-serve build",
-        "typecheck": "tsc -b"
+        "typecheck": "tsc -b",
+        "lint": "eslint '**/*.{ts,tsx}'"
     },
     "dependencies": {
         "@emotion/cache": "^11.7.1",

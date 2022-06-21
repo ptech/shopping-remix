@@ -96,6 +96,7 @@ export const CatchBoundary: CatchBoundaryComponent = () => {
             <main style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {caught.status === 404 && (
                     <img
+                        alt="Not found"
                         style={{ maxHeight: '100vh', width: 'auto' }}
                         src="https://cdn.dribbble.com/users/1175431/screenshots/6188233/media/ad42057889c385dd8f84b8330f69269b.gif" />
                 )}

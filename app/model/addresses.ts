@@ -1,6 +1,7 @@
 import {db} from "~/db.server";
-import {TAddress} from "~/types/model.type";
 import {uuid} from "uuidv4";
+
+import type {TAddress} from "~/types/model.type";
 
 export type TNewAddress = Omit<TAddress, 'id'>;
 

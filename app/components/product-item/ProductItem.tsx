@@ -3,7 +3,7 @@ import React from "react";
 import {Image, ImageWrapper} from './ProductItem.styles';
 import {Link} from "@remix-run/react";
 
-import {TProduct} from "~/types/model.type";
+import type {TProduct} from "~/types/model.type";
 
 type PropTypes = {
     item: TProduct;

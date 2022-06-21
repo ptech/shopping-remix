@@ -1,8 +1,12 @@
-import {json, LoaderFunction} from "@remix-run/node";
-import {getBag, getTotalAmount} from "~/model/bag";
-import {TBagItemDetailed} from "~/types/model.type";
+import {json} from "@remix-run/node";
 import {useLoaderData} from "@remix-run/react";
+
+import {getBag, getTotalAmount} from "~/model/bag";
+
 import MiniProductItem from "~/components/mini-product-item/MiniProductItem";
+
+import type {TBagItemDetailed} from "~/types/model.type";
+import type { LoaderFunction} from "@remix-run/node";
 
 import {
     Main,
@@ -31,7 +35,7 @@ const Checkout = () => {
     return (
         <Main>
             <Content>
-
+                TBD
             </Content>
             <Summary>
                 <h2>Summary</h2>

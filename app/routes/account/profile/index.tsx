@@ -1,8 +1,12 @@
-import {json, LoaderFunction} from "@remix-run/node";
-import {getProfile, TProfile} from "~/model/user";
+import {json} from "@remix-run/node";
 import {Link, useLoaderData} from "@remix-run/react";
-import { H1, Section } from './Profile.styles';
 
+import {getProfile} from "~/model/user";
+
+import type { LoaderFunction} from "@remix-run/node";
+import type { TProfile} from "~/model/user";
+
+import { H1, Section } from './Profile.styles';
 
 export const loader: LoaderFunction = async () => {
     const user = await getProfile();

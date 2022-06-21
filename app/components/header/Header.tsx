@@ -1,12 +1,9 @@
 import React from 'react';
-import styled from "@emotion/styled";
 
-import {black, white} from "~/theme/colors";
-import {Link} from "@remix-run/react";
 import Bag from "~/components/icons/Bag";
+import Account from "~/components/icons/Account";
 
 import {StyledHeader, Nav, Logo, StyledLink, StyledBagLink, Counter} from './Header.styles';
-import Account from "~/components/icons/Account";
 
 type PropTypes = {
     bagCounter?: number;
