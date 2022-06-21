@@ -93,14 +93,14 @@ export const CatchBoundary: CatchBoundaryComponent = () => {
 
     return (
         <Document title="Oops!">
-            <Header />
-            <main>
-                <h1>{caught.status === 404 ? 'Not found' : 'Oops! Something went wrong!'}</h1>
-                <pre>
-                    <code>{JSON.stringify(caught.data, null, 2)}</code>
-                </pre>
+            <main style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {caught.status === 404 && (
+                    <img
+                        style={{ maxHeight: '100vh', width: 'auto' }}
+                        src="https://cdn.dribbble.com/users/1175431/screenshots/6188233/media/ad42057889c385dd8f84b8330f69269b.gif" />
+                )}
+                {caught.status !== 404 && <h1>Oops! Something went wrong!</h1>}
             </main>
-            <Footer/>
         </Document>
     );
 }
@@ -108,12 +108,10 @@ export const CatchBoundary: CatchBoundaryComponent = () => {
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
     return (
         <Document title="Oops!">
-            <Header />
             <main>
                 <h1>Oops! Something went wrong!</h1>
                 <pre>{error.stack}</pre>
             </main>
-            <Footer/>
         </Document>
     );
 }

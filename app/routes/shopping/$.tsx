@@ -57,7 +57,7 @@ export const loader: LoaderFunction = async ({params, request}) => {
 
 export const headers: HeadersFunction = () => {
     return {
-        "X-Where-Are-You": "Switch Party",
+        "X-Where-Are-You": "Switch Shopping",
     };
 };
 

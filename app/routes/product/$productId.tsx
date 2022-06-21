@@ -1,7 +1,7 @@
 import type {ActionFunction, LoaderFunction} from "@remix-run/node";
 import {getProduct} from "~/model/products";
 import invariant from "tiny-invariant";
-import {Form, FormProps, useActionData, useLoaderData, useTransition} from "@remix-run/react";
+import {Form, useActionData, useLoaderData, useTransition} from "@remix-run/react";
 import {json} from "@remix-run/node";
 
 import type {TProduct} from "~/types/model.type";

@@ -1,11 +1,16 @@
 import type { LoaderFunction} from "@remix-run/node";
 import {json} from "@remix-run/node";
-import {getAddress} from "~/model/addresses";
-import type {TAddress} from "~/types/model.type";
-import {addressFormAction} from "~/components/address-form/AddressForm";
-import {H1, StyledAddressForm} from "~/routes/account/addresses/Addresses.styles";
-import {useLoaderData} from "@remix-run/react";
+import {useCatch, useLoaderData} from "@remix-run/react";
 import invariant from "tiny-invariant";
+
+import {getAddress} from "~/model/addresses";
+
+import {addressFormAction} from "~/components/address-form/AddressForm";
+
+import type {TAddress} from "~/types/model.type";
+import type {CatchBoundaryComponent} from "@remix-run/react/routeModules";
+
+import {H1, StyledAddressForm} from "~/routes/account/addresses/Addresses.styles";
 
 type LoaderData = {
     address?: TAddress;
@@ -36,6 +41,20 @@ const EditAddress = () => {
             <StyledAddressForm address={address} />
         </>
     )
+};
+
+export const CatchBoundary: CatchBoundaryComponent = () => {
+    const caught = useCatch();
+
+    if (caught.status === 404) {
+        return (
+            <img
+                style={{ maxHeight: '100vh', width: 'auto' }}
+                src="https://cdn.dribbble.com/users/1175431/screenshots/6188233/media/ad42057889c385dd8f84b8330f69269b.gif" />
+        );
+    }
+
+    return <h1>Oops! Something went wrong!</h1>;
 };
 
 export default EditAddress;
